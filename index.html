@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>Resultados Pusher</title>
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100%;
+    }
+    .fondo {
+      background: #0d47a1;
+      background-size: cover;
+      position: relative;
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="fondo">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div>
+          <h1 class="text-white text-center">Ejemplo de texto: <span id="contenido"></span></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('a571373e043b11e8b596', {
+      cluster: 'us2'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      // alert(JSON.stringify(data));
+
+      document.getElementById("contenido").innerHTML = `${data}`
+      
+    });
+  </script>
+</body>
+</html>
